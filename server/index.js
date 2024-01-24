@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 app.use('/api/user',userRoute )
-app.use('/api/user',authRoute )
+app.use('/api/auth',authRoute )
 
 
 app.use((err,req,res,next)=>{
