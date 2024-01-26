@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {useNavigate} from 'react-router-dom'
 import { useDispatch , useSelector } from "react-redux";
 import {signInStart,signInSuccess,signInFailure} from '../redux/user/userSlice.js'
+import Oauth from "../component/Oauth";
 
 const Signin = () => {
   const [formData, setFormData]= useState({});
@@ -103,9 +104,13 @@ const Signin = () => {
             <Spinner  size='sm'/>
             <span className="pl-3 ">loading....</span>
             </>
-          ):"Sign Up"
+          ):"Sign In"
         }
+
+
         </Button>
+
+        <Oauth/>
         </form>
         <div className="flex gap-2 text-sm mt-5">
           <span>Have An account? </span>

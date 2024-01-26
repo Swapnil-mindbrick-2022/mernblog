@@ -17,6 +17,10 @@ const userSchema = new Schema ({
     password:{
         type:String,
         required:true,
+    },
+    profilePicture:{
+        type:String,
+        default:"https://res.cloudinary.com/dqv6g7t4"
     }
 },{
     timestamps:true
