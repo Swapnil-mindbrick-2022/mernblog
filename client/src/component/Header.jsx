@@ -1,12 +1,14 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
+import { FaMoon , FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-
+import { toggleTheme } from "../redux/theme/themeSlice";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser)
+  const {theme} = useSelector((state)=> state.theme);
+  const dispatch = useDispatch();
+  console.log(currentUser);
   const path = useLocation();
   return (
     <Navbar className="border-b-2">
@@ -39,29 +41,45 @@ const Header = () => {
       </Button>
 
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
+        <Button
+          className="w-12 h-10 hidden sm:inline"
+          color="gray"
+          onClick={() => dispatch(toggleTheme())}
+          pill
+         
+        >
+
+        {theme === 'light' ? <FaSun/> : <FaMoon/>}
+      
         </Button>
 
         {currentUser ? (
-          <Dropdown 
-          arrowIom={false} 
-          inline 
-          label={<Avatar  alt='user' 
-          img={currentUser.rest.profilePicture}
-          rounded
-          />}> 
-          <Dropdown.Header>
-          
-          <span className="block text-sm"> @{currentUser.rest.username}</span>
-          <span className="block text-sm font-medium truncate"> @{currentUser.rest.email}</span>
-          </Dropdown.Header>
-          <Link to ='/dashboard?tab=profile'> 
-          <Dropdown.Item> Profile </Dropdown.Item>
-          <Dropdown.Divider/> 
-          <Dropdown.Item> SignOut </Dropdown.Item>
-          </Link>
-         
+          <Dropdown
+            arrowIom={false}
+            inline
+            label={
+              <Avatar
+                alt="user"
+                img={currentUser.rest.profilePicture}
+                rounded
+              />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">
+                {" "}
+                @{currentUser.rest.username}
+              </span>
+              <span className="block text-sm font-medium truncate">
+                {" "}
+                @{currentUser.rest.email}
+              </span>
+            </Dropdown.Header>
+            <Link to="/dashboard?tab=profile">
+              <Dropdown.Item> Profile </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item> SignOut </Dropdown.Item>
+            </Link>
           </Dropdown>
         ) : (
           <Link to="/signin">
